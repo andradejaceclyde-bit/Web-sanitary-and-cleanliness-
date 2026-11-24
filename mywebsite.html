@@ -1,0 +1,726 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CleanSchool - Sanitation Monitoring</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #eeeeee;
+    color: #333;
+}
+
+nav {
+    background: #292929;
+    padding: 18px 6%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.logo {
+    color: #ff4444;
+    font-size: 22px;
+    font-weight: bold;
+}
+
+nav ul {
+    display: flex;
+    list-style: none;
+    gap: 20px;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+nav a:hover,
+nav a.active {
+    color: #ff4444;
+}
+
+.page {
+    display: none;
+    min-height: 75vh;
+}
+
+.page.active {
+    display: block;
+}
+
+.hero {
+    background: linear-gradient(120deg, #850000, #df2929);
+    color: white;
+    text-align: center;
+    padding: 100px 8%;
+}
+
+.hero h1 {
+    font-size: 40px;
+    margin-bottom: 20px;
+}
+
+.hero p {
+    max-width: 700px;
+    margin: auto;
+    line-height: 1.8;
+}
+
+section {
+    padding: 60px 8%;
+}
+
+.section-title {
+    text-align: center;
+    margin-bottom: 35px;
+}
+
+.section-title h2 {
+    color: #b00000;
+    font-size: 29px;
+    margin-bottom: 12px;
+}
+
+.section-title p {
+    color: #666;
+    line-height: 1.6;
+}
+
+.btn {
+    padding: 13px 24px;
+    margin: 10px 5px;
+    border: none;
+    border-radius: 7px;
+    background: #b00000;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.btn:hover {
+    background: #850000;
+}
+
+.btn-light {
+    background: white;
+    color: #b00000;
+}
+
+.btn-light:hover {
+    background: #ddd;
+}
+
+.btn-gray {
+    background: #555;
+}
+
+.cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+}
+
+.card {
+    background: white;
+    padding: 25px;
+    border-radius: 10px;
+    border: 1px solid #ddd;
+    box-shadow: 0 3px 12px rgba(0,0,0,.07);
+}
+
+.card h3 {
+    color: #b00000;
+    margin-bottom: 12px;
+}
+
+.card p {
+    color: #666;
+    line-height: 1.7;
+    overflow-wrap: anywhere;
+    margin-bottom: 5px;
+}
+
+.icon {
+    font-size: 35px;
+    margin-bottom: 15px;
+}
+
+.about-box {
+    max-width: 850px;
+    margin: auto;
+    background: white;
+    padding: 35px;
+    border-radius: 12px;
+    line-height: 1.9;
+}
+
+.about-box h3 {
+    color: #b00000;
+    margin: 20px 0 8px;
+}
+
+#report {
+    background: #d6d6d6;
+}
+
+.form-container {
+    background: white;
+    max-width: 680px;
+    margin: auto;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 3px 12px rgba(0,0,0,.08);
+}
+
+label {
+    display: block;
+    margin-top: 18px;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+input, select, textarea {
+    width: 100%;
+    padding: 13px;
+    margin-top: 8px;
+    border: 1px solid #bbb;
+    border-radius: 7px;
+    font-size: 15px;
+    font-family: Arial;
+    background: #f5f5f5;
+}
+
+textarea {
+    min-height: 120px;
+    resize: vertical;
+}
+
+.submit-btn {
+    width: 100%;
+    padding: 15px;
+    background: #b00000;
+    color: white;
+    border: none;
+    border-radius: 7px;
+    margin-top: 25px;
+    font-weight: bold;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.status {
+    display: inline-block;
+    padding: 7px 12px;
+    margin-top: 12px;
+    background: #fff0cc;
+    color: #8a5a00;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.empty {
+    background: white;
+    padding: 35px;
+    text-align: center;
+    color: #777;
+    border-radius: 10px;
+    grid-column: 1 / -1;
+}
+
+/* UPDATED SCHOOL FOOTER */
+.school-footer {
+    background: #203b27;
+    color: white;
+    text-align: center;
+    padding: 65px 20px;
+    margin-top: 0;
+    line-height: 1.8;
+}
+
+.school-footer h2 {
+    font-size: 28px;
+    margin-bottom: 15px;
+    letter-spacing: 1px;
+}
+
+.school-footer .address {
+    font-size: 17px;
+    color: #d6d6d6;
+    margin-bottom: 25px;
+}
+
+.school-footer .purpose {
+    font-size: 18px;
+    color: #eeeeee;
+    max-width: 750px;
+    margin: 0 auto 30px;
+}
+
+.school-footer .members-title {
+    color: #c8b45e;
+    font-weight: bold;
+    margin-bottom: 8px;
+}
+
+.school-footer .members {
+    color: #c8b45e;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.school-footer .copyright {
+    color: #cccccc;
+    font-size: 13px;
+    margin-top: 30px;
+}
+
+@media(max-width: 600px) {
+    nav {
+        flex-direction: column;
+    }
+
+    nav ul {
+        justify-content: center;
+        gap: 13px;
+        flex-wrap: wrap;
+    }
+
+    nav a {
+        font-size: 12px;
+    }
+
+    .hero {
+        padding: 75px 6%;
+    }
+
+    .hero h1 {
+        font-size: 29px;
+    }
+
+    section {
+        padding: 45px 6%;
+    }
+
+    .form-container {
+        padding: 20px;
+    }
+
+    .school-footer h2 {
+        font-size: 22px;
+    }
+
+    .school-footer .purpose {
+        font-size: 15px;
+    }
+
+    .school-footer .members {
+        font-size: 14px;
+        line-height: 2;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- NAVIGATION -->
+<nav>
+    <div class="logo">🔴 CleanSchool</div>
+
+    <ul>
+        <li><a href="#home" data-page="home" onclick="showPage('home')">Home</a></li>
+        <li><a href="#about" data-page="about" onclick="showPage('about')">About</a></li>
+        <li><a href="#report" data-page="report" onclick="showPage('report')">Report Issue</a></li>
+        <li><a href="#monitoring" data-page="monitoring" onclick="showPage('monitoring')">Monitoring</a></li>
+    </ul>
+</nav>
+
+<main>
+
+<!-- PAGE 1: HOME -->
+<div class="page active" id="home">
+
+    <div class="hero">
+        <h1>A Cleaner School Starts With Us.</h1>
+
+        <p>
+            Welcome to the Sanitation Monitoring Platform
+            of Minuyan National High School. Help us maintain
+            a clean, safe, and healthy learning environment
+            by reporting sanitation problems around our school.
+        </p>
+
+        <button class="btn btn-light" onclick="showPage('report')">
+            Report a Problem →
+        </button>
+
+        <button class="btn" onclick="showPage('about')">
+            Learn More
+        </button>
+    </div>
+
+    <section>
+        <div class="section-title">
+            <h2>Welcome to CleanSchool</h2>
+            <p>A platform dedicated to improving school cleanliness.</p>
+        </div>
+
+        <div class="cards">
+            <div class="card">
+                <div class="icon">📝</div>
+                <h3>Easy Reporting</h3>
+                <p>Report sanitation problems through a simple online form.</p>
+            </div>
+
+            <div class="card">
+                <div class="icon">📍</div>
+                <h3>Identify Problems</h3>
+                <p>Provide the location of cleanliness concerns.</p>
+            </div>
+
+            <div class="card">
+                <div class="icon">📊</div>
+                <h3>Track Progress</h3>
+                <p>Check the status of submitted sanitation reports.</p>
+            </div>
+        </div>
+    </section>
+</div>
+
+<!-- PAGE 2: ABOUT -->
+<div class="page" id="about">
+
+    <section>
+        <div class="section-title">
+            <h2>About Our Platform</h2>
+            <p>Learn more about our sanitation monitoring project.</p>
+        </div>
+
+        <div class="about-box">
+
+            <h3>Introduction</h3>
+            <p>
+                The Sanitation Monitoring Platform is an online
+                system designed to address unmonitored cleanliness
+                and sanitation issues in comfort rooms and classrooms
+                at Minuyan National High School.
+            </p>
+
+            <h3>Purpose</h3>
+            <p>
+                This platform provides students, teachers, and staff
+                with an accessible way to report sanitation concerns
+                and monitor whether these issues have been resolved
+                or remain unaddressed.
+            </p>
+
+            <h3>Objectives</h3>
+            <p>
+                • Provide an accessible reporting platform.<br>
+                • Identify the locations of sanitation problems.<br>
+                • Monitor the status of submitted reports.<br>
+                • Encourage cleanliness and responsibility.
+            </p>
+
+            <h3>Our Mission</h3>
+            <p>
+                To promote a cleaner, safer, and healthier learning
+                environment through accessible technology and
+                community participation.
+            </p>
+        </div>
+
+        <div style="text-align:center;margin-top:30px;">
+            <button class="btn" onclick="showPage('report')">
+                Report a Problem →
+            </button>
+            <button class="btn btn-gray" onclick="showPage('home')">
+                Back to Home
+            </button>
+        </div>
+    </section>
+</div>
+
+<!-- PAGE 3: REPORT ISSUE -->
+<div class="page" id="report">
+
+    <section>
+        <div class="section-title">
+            <h2>Report a Sanitation Issue</h2>
+            <p>Complete the form to report a school cleanliness problem.</p>
+        </div>
+
+        <div class="form-container">
+
+            <form id="reportForm">
+
+                <label for="name">Full Name</label>
+                <input type="text" id="name" placeholder="Enter your full name" required>
+
+                <label for="grade">Grade and Section</label>
+                <input type="text" id="grade" placeholder="Example: Grade 11 - STEM" required>
+
+                <label for="role">Your Role</label>
+                <select id="role" required>
+                    <option value="">Select your role</option>
+                    <option>Student</option>
+                    <option>Teacher</option>
+                    <option>School Staff</option>
+                </select>
+
+                <label for="issue">Type of Issue</label>
+                <select id="issue" required>
+                    <option value="">Choose an issue</option>
+                    <option>Dirty Comfort Room</option>
+                    <option>Dirty Classroom</option>
+                    <option>Unpleasant Odor</option>
+                    <option>Overflowing Trash Bin</option>
+                    <option>Broken Faucet</option>
+                    <option>No Water Supply</option>
+                    <option>Other</option>
+                </select>
+
+                <label for="location">Location</label>
+                <select id="location" required>
+                    <option value="">Choose location</option>
+                    <option>Male Comfort Room</option>
+                    <option>Female Comfort Room</option>
+                    <option>Classroom</option>
+                    <option>Hallway</option>
+                    <option>School Canteen</option>
+                    <option>Other</option>
+                </select>
+
+                <label for="specific">Specific Location</label>
+                <input type="text" id="specific" placeholder="Room number or specific area" required>
+
+                <label for="description">Description of the Problem</label>
+                <textarea id="description" placeholder="Describe the problem you observed..." required></textarea>
+
+                <button type="submit" class="submit-btn">
+                    Submit Report
+                </button>
+
+            </form>
+
+            <p id="message" style="text-align:center;color:#b00000;margin-top:15px;font-weight:bold;"></p>
+        </div>
+
+        <div style="text-align:center;margin-top:25px;">
+            <button class="btn btn-gray" onclick="showPage('home')">
+                Back to Home
+            </button>
+            <button class="btn" onclick="showPage('monitoring')">
+                View Reports →
+            </button>
+        </div>
+    </section>
+</div>
+
+<!-- PAGE 4: MONITORING -->
+<div class="page" id="monitoring">
+
+    <section>
+        <div class="section-title">
+            <h2>Sanitation Monitoring</h2>
+            <p>View the sanitation concerns submitted through our platform.</p>
+        </div>
+
+        <div class="cards" id="reports">
+            <div class="empty">
+                No sanitation reports submitted yet.
+            </div>
+        </div>
+
+        <div style="text-align:center;margin-top:30px;">
+            <button class="btn" onclick="showPage('report')">
+                Submit Another Report
+            </button>
+
+            <button class="btn btn-gray" onclick="showPage('home')">
+                Back to Home
+            </button>
+        </div>
+    </section>
+</div>
+
+</main>
+
+<!-- UPDATED FOOTER -->
+<footer class="school-footer">
+
+    <h2>MINUYAN NATIONAL HIGH SCHOOL</h2>
+
+    <p class="address">
+        Minuyan, Norzagaray, Bulacan
+    </p>
+
+    <p class="purpose">
+        Online Platform for Monitoring Cleanliness and Sanitation Issues
+        in Comfort Rooms and Classrooms
+    </p>
+
+    <p class="members-title">Developed by:</p>
+
+    <div class="members">
+        Andrade Jace Clyde<br>
+        San Pedro Justine<br>
+        Praxides Sean Paul
+    </div>
+
+    <p class="copyright">
+        © 2026 Minuyan National High School
+    </p>
+
+    <p class="copyright">
+        A Cleaner School, A Better Learning Environment.
+    </p>
+
+</footer>
+
+<script>
+
+// REPORT STORAGE
+let reports = [];
+
+// SWITCH BETWEEN FOUR PAGES
+function showPage(pageId) {
+
+    document.querySelectorAll('.page').forEach(page => {
+        page.classList.remove('active');
+    });
+
+    document.getElementById(pageId).classList.add('active');
+
+    document.querySelectorAll('nav a').forEach(link => {
+        link.classList.remove('active');
+
+        if(link.dataset.page === pageId) {
+            link.classList.add('active');
+        }
+    });
+
+    history.replaceState(null, "", "#" + pageId);
+
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+}
+
+// HANDLE NAVIGATION LINKS
+window.addEventListener("load", function() {
+    const page = location.hash.replace("#", "");
+
+    if(["home", "about", "report", "monitoring"].includes(page)) {
+        showPage(page);
+    }
+});
+
+// SUBMIT REPORT
+document.getElementById("reportForm")
+.addEventListener("submit", function(event) {
+
+    event.preventDefault();
+
+    const report = {
+        name: document.getElementById("name").value,
+        grade: document.getElementById("grade").value,
+        role: document.getElementById("role").value,
+        issue: document.getElementById("issue").value,
+        location: document.getElementById("location").value,
+        specific: document.getElementById("specific").value,
+        description: document.getElementById("description").value,
+        status: "Pending Review"
+    };
+
+    reports.push(report);
+
+    displayReports();
+
+    document.getElementById("message").textContent =
+        "✓ Your report was submitted successfully!";
+
+    this.reset();
+
+    showPage("monitoring");
+
+});
+
+// DISPLAY REPORTS
+function displayReports() {
+
+    const container = document.getElementById("reports");
+
+    container.innerHTML = "";
+
+    if(reports.length === 0) {
+        container.innerHTML = `
+            <div class="empty">
+                No sanitation reports submitted yet.
+            </div>
+        `;
+        return;
+    }
+
+    reports.forEach(function(report) {
+
+        const card = document.createElement("div");
+        card.className = "card";
+
+        const title = document.createElement("h3");
+        title.textContent = report.issue;
+
+        const reporter = document.createElement("p");
+        reporter.textContent = "Reported by: " + report.name;
+
+        const grade = document.createElement("p");
+        grade.textContent = "Grade/Section: " + report.grade;
+
+        const role = document.createElement("p");
+        role.textContent = "Role: " + report.role;
+
+        const location = document.createElement("p");
+        location.textContent =
+            "Location: " + report.location + " - " + report.specific;
+
+        const description = document.createElement("p");
+        description.textContent = report.description;
+
+        const status = document.createElement("span");
+        status.className = "status";
+        status.textContent = "Status: " + report.status;
+
+        card.append(
+            title,
+            reporter,
+            grade,
+            role,
+            location,
+            description,
+            status
+        );
+
+        container.appendChild(card);
+    });
+}
+
+</script>
+
+</body>
+</html>
